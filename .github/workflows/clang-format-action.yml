@@ -1,28 +1,30 @@
----
-name: "Clang format"
+name: "format code"
 
-on: [pull_request, push]
+# run on pull requests to develop
+on:
+  pull_request:
+    branches:
+      - f1
+
 jobs:
   format:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v2
         with:
+          # check out HEAD on the branch
           ref: ${{ github.head_ref }}
+          # make sure the parent commit is grabbed as well, because
+          # that's what will get formatted (i.e. the most recent commit)
           fetch-depth: 2
-
-      - uses: Akshat-Oke/clang-format-action@cdfix
-        # Default options
+      # format the latest commit
+      - uses: purduesigbots/clang-format-action@1
+        # use one of clang-format's supported styles or leave this out to use the style in your .clang-format file
         with:
-          check: false
           style: file
-          extensions: cpp,h,hpp,c
-          clang-version: latest
-
       # commit the changes (if there are any)
       - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v4.1.2
         with:
-          commit_message: "clang-format ✅"
+          commit_message: 🎨 apply clang-format changes
           branch: ${{ github.head_ref }}
-...
