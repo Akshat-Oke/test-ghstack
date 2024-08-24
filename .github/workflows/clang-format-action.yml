@@ -11,7 +11,7 @@ jobs:
           ref: ${{ github.head_ref }}
           fetch-depth: 2
 
-      - uses: Akshat-Oke/clang-format-action@pdiff
+      - uses: Akshat-Oke/clang-format-action@cdfix
         # Default options
         with:
           check: false
