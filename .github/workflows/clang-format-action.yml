@@ -32,7 +32,7 @@ jobs:
       - name: Run git-clang-format
         run: |
           cd "$GITHUB_WORKSPACE"
-          git diff HEAD^ --name-only | xargs git-clang-format -i
+          git diff HEAD^ --name-only | xargs clang-format -i
       # commit the changes (if there are any)
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4.1.2
