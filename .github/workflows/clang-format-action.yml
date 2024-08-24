@@ -1,4 +1,4 @@
-name: "format code"
+name: "format code commit"
 
 # run on pull requests to develop
 on:
