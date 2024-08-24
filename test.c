@@ -2,5 +2,5 @@
 
 int main(  ){   
 printf("some code not formatted"    );
-return   
+return   (int)
 0; }
