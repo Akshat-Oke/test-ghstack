@@ -5,6 +5,9 @@ on:
   pull_request:
     branches:
       - f1
+  push:
+    branches:
+      - f1
 
 jobs:
   format:
