@@ -20,11 +20,19 @@ jobs:
           # make sure the parent commit is grabbed as well, because
           # that's what will get formatted (i.e. the most recent commit)
           fetch-depth: 2
-      # format the latest commit
-      - uses: purduesigbots/clang-format-action@1
-        # use one of clang-format's supported styles or leave this out to use the style in your .clang-format file
-        with:
-          style: file
+      # # format the latest commit
+      # - uses: purduesigbots/clang-format-action@1
+      #   # use one of clang-format's supported styles or leave this out to use the style in your .clang-format file
+      #   with:
+      #     style: file
+      - name: Install clang-format and git-clang-format
+        run: |
+          sudo apt-get update
+          sudo apt-get install clang-format git-clang-format
+      - name: Run git-clang-format
+        run: |
+          cd "$GITHUB_WORKSPACE"
+          git diff HEAD^ --name-only | xargs git-clang-format -i
       # commit the changes (if there are any)
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4.1.2
