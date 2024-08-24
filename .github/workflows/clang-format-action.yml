@@ -40,7 +40,7 @@ on:
       - main
   pull_request:
     branches:
-      - main
+      - f1
 jobs:
   format:
     runs-on: ubuntu-latest
