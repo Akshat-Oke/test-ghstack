@@ -1,14 +1,34 @@
-name: clang-format Check
-on: [pull_request]
+---
+name: "Clang format"
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 jobs:
-  formatting-check:
-    name: Formatting Check
+  format:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - name: Run clang-format style check for C/C++/Protobuf programs.
-      uses: jidicula/clang-format-action@v4.13.0
-      with:
-        clang-format-version: '13'
-        # check-path: .
-        fallback-style: 'LLVM' # optional
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 2
+
+      - uses: jayllyz/clang-format-action@v1
+        # Default options
+        with:
+          check: false
+          style: file
+          extensions: cpp,h,hpp,c
+          clang-version: latest
+
+      # commit the changes (if there are any)
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "clang-format ✅"
+          branch: ${{ github.head_ref }}
+...
