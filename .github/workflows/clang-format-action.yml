@@ -1,13 +1,7 @@
 ---
 name: "Clang format"
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+on: [pull_request, push]
 jobs:
   format:
     runs-on: ubuntu-latest
